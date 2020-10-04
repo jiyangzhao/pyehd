@@ -4,6 +4,7 @@ from tkinter import filedialog
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import pyehd as ehd
 from PIL import Image
 
 # Get file name for img1
@@ -20,29 +21,6 @@ file_path2 = filedialog.askopenfilename()
 file_name2 = os.path.basename(file_path2)
 img2 = plt.imread(file_path2)
 # Function findehd() to get EHD vector
-def findehd(img):
-    [r,c,m] = np.shape(img)
-    if m==3:
-        img = Image.open(img).convert('LA')
-    M = 4*np.ceil(r/4) 
-    N = 4*np.ceil(c/4)
-    img = Image.fromarray(img)
-    img.resize(size=(M, N))
-    AllBins = np.zeros((17, 5))
-    p = 1
-    L = 0
-    for i in range(1,4,1):
-        K = 0
-        for j in range(1,4,1):
-            #这两条横线里得矩阵操作和一些函数需要从MATLAB改换成python
-            block = img((K+1:K+(M/4)),L+1:L+(N/4))
-            AllBins(p,:) = getbins(double(block))
-            K = K + (M/4)
-            p = p + 1
-        L = L + (N/4)
-        # 这两条横线里得矩阵操作和一些函数需要从MATLAB改换成python
-    GlobalBin = np.mean(AllBins)
-    ehd = np.reshape(np.transpose(AllBins),[1,85])
 
 # Finding EHD1
 ehd1 = findehd(img1)
