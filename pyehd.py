@@ -58,7 +58,7 @@ def getbins(imgb):
             index = np.argmax(parray) 
             value = parray[index]
             if value >= T:
-                bins[index]=bins[index]+1
+                bins[index]=bins[index]+1 # update bins values
             K = K+2
         L = L+2
     return bins
