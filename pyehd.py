@@ -1,5 +1,6 @@
 # python ehd module
 import numpy as np
+from PIL import Image
 
 def findehd(img):
     r,c,m = np.shape(img)
@@ -15,15 +16,16 @@ def findehd(img):
     for i in range(1,4,1):
         K = 0
         for j in range(1,4,1):
-            #这两条横线里得矩阵操作和一些函数需要从MATLAB改换成python
-            block = img((K+1:K+(M/4)),L+1:L+(N/4))
-            AllBins(p,:) = getbins(double(block))
+            block = img[K+1:K+M/4, L+1:L+N/4]
+            AllBins[p,:] = getbins(double(block))
             K = K + (M/4)
             p = p + 1
         L = L + (N/4)
-        # 这两条横线里得矩阵操作和一些函数需要从MATLAB改换成python
     GlobalBin = np.mean(AllBins)
+    AllBins[17,:]= np.round(GlobalBin)
     ehd = np.reshape(np.transpose(AllBins),[1,85])
+    return ehd
+
 
 # function for getting Bin values for each block
 def getbins(imgb):

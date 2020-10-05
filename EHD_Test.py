@@ -23,9 +23,9 @@ img2 = plt.imread(file_path2)
 # Function findehd() to get EHD vector
 
 # Finding EHD1
-ehd1 = findehd(img1)
+ehd1 = ehd.findehd(img1)
 # Finding EHD2
-ehd2 = findehd(img2)
+ehd2 = ehd.findehd(img2)
 
 fig, axs = plt.subplots(nrows=2, ncols=2)
 axs[0,0].imshow(img1)
