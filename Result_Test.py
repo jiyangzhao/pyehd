@@ -27,7 +27,7 @@ imgs = Images
 
 numList = range(0,len(Labels))
 
-for i in random.sample(numList,2):
+for i in range(100,105,1):
     # plotimg(Images[i],Labels[i],i)
     ehd_current = ehd.findehd(Images[i])
     print('Image type: ' + str(labelsList[Labels[i]]))

@@ -20,9 +20,9 @@ def findehd(img):
     AllBins = np.zeros((17, 5)) # initializing Bins
     p = 1
     L = 0
-    for i in range(4):
+    for _ in range(4):
         K = 0
-        for j in range(4):
+        for _ in range(4):
             block = img[K:K+int(M/4), L:L+int(N/4)] # Extracting (M/4,N/4) block
             AllBins[p,:] = getbins(np.double(block)) 
             K = K + int(M/4)
@@ -57,9 +57,9 @@ def getbins(imgb):
     L = 0
 
     """loops of operating"""
-    for i in range(nobc):
+    for _ in range(nobc):
         K = 0
-        for j in range(nobr):
+        for _ in range(nobr):
             block = imgb[K:K+2, L:L+2] # Extracting 2x2 block
             pv = np.abs(np.sum(np.sum(block*V))) # apply operators
             ph = np.abs(np.sum(np.sum(block*H)))
