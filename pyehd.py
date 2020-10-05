@@ -1,35 +1,35 @@
 # python ehd module
 import numpy as np
-from PIL import Image
 
+
+# function to convert RBG image to grayscale image
 def rgb2gray(rgb):
     r, g, b = rgb[:,:,0], rgb[:,:,1], rgb[:,:,2]
     gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
     return gray
 
+# function to get EHD vector
 def findehd(img):
-    r,c,m = np.shape(img)
+
+    r,c,m = np.shape(img) # get the shape of image
     if m==3:
         img = rgb2gray(img) # convert RGB img to grayscale img
     M = 4*np.ceil(r/4) 
     N = 4*np.ceil(c/4)
-    # img = Image.fromarray(img)
-    img = np.reshape(img,(int(M),int(N)))
-    AllBins = np.zeros((17, 5))
+    img = np.reshape(img,(int(M),int(N))) # Making image dim. divisible completely by 4
+    AllBins = np.zeros((17, 5)) # initializing Bins
     p = 1
     L = 0
     for i in range(4):
         K = 0
         for j in range(4):
-            block = img[K:K+int(M/4), L:L+int(N/4)]
-            AllBins[p,:] = getbins(np.double(block))
+            block = img[K:K+int(M/4), L:L+int(N/4)] # Extracting (M/4,N/4) block
+            AllBins[p,:] = getbins(np.double(block)) 
             K = K + int(M/4)
             p = p + 1
         L = L + int(N/4)
-    GlobalBin = np.mean(AllBins)
+    GlobalBin = np.mean(AllBins) # getting global Bin
     AllBins[16,:]= np.round(GlobalBin)
-    # print('AllBins is: ')
-    # print(AllBins)
     ehd = np.reshape(np.transpose(AllBins),[1,85])
     ehd = ehd[0,-5:]
     return ehd
@@ -37,9 +37,7 @@ def findehd(img):
 
 # function for getting Bin values for each block
 def getbins(imgb):
-    # print(imgb)
     M,N = imgb.shape
-    # print(imgb.shape)
     M = 2*np.ceil(M/2)
     N = 2*np.ceil(N/2)
     # print(M)
@@ -63,16 +61,14 @@ def getbins(imgb):
         K = 0
         for j in range(nobr):
             block = imgb[K:K+2, L:L+2] # Extracting 2x2 block
-            # print(block)
             pv = np.abs(np.sum(np.sum(block*V))) # apply operators
-            # print(pv)
             ph = np.abs(np.sum(np.sum(block*H)))
             pd45 = np.abs(np.sum(np.sum(block*D45)))
             pd135 = np.abs(np.sum(np.sum(block*D135)))
             pisot = np.abs(np.sum(np.sum(block*Isot)))
             parray = [pv,ph,pd45,pd135,pisot]
-            index = np.argmax(parray) 
-            value = parray[index]
+            index = np.argmax(parray) # get the index of max value
+            value = parray[index] # get the max value
             # print('value: '+str(value))
             if value >= T:
                 bins[0,index]=bins[0,index]+1 # update bins values
