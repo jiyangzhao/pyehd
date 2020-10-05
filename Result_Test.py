@@ -30,12 +30,16 @@ numList = range(0,len(Labels))
 # for i in random.sample(numList,1):
 #     plotimg(Images[i],Labels[i],i)
 
-img1 = Images[1]
-img2 = Images[2]
+img1 = Images[50]
+img2 = Images[30]
 
 ehd1 = ehd.findehd(img1)
 ehd2 = ehd.findehd(img2)
 
+print('ehd1 is: '+str(ehd1))
+print('ehd2 is: '+str(ehd2))
+
+'''
 fig, axs = plt.subplots(nrows=2, ncols=2)
 axs[0,0].imshow(img1)
 plt.title('Image 1')
@@ -58,3 +62,4 @@ np.disp('L2 Distance = %1.2f' % D2)
 # L1 Distance between EHD1 and EHD2
 D1 = np.sum(np.abs(ehd1-ehd2))
 np.disp('L1 Distance = %1.2f' % D1)
+'''
