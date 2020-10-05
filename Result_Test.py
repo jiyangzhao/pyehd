@@ -13,25 +13,25 @@ def plotimg(image,label,index):
     plt.title('No. '+str(index)+' '+str(labelsList[label]))
     plt.show()
 
-with open('Images_ehd.npy','rb') as fread:
+with open('Image_test_1.npy','rb') as fread:
     Images = np.load(fread)
     fread.close()
 
-with open('Labels_ehd.npy','rb') as f:
-    Labels = np.load(f)
-    f.close()
+img1 = Images
 
+with open('Image_test_2.npy','rb') as fread:
+    Images = np.load(fread)
+    fread.close()
+
+img2 = Images
 
 print(Images.shape)
-print(Labels.shape)
-
-numList = range(0,len(Labels))
 
 # for i in random.sample(numList,1):
 #     plotimg(Images[i],Labels[i],i)
 
-img1 = Images[50]
-img2 = Images[30]
+# img1 = Images[50]
+# img2 = Images[30]
 
 ehd1 = ehd.findehd(img1)
 ehd2 = ehd.findehd(img2)
