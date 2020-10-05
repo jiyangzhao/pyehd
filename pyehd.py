@@ -31,6 +31,7 @@ def findehd(img):
     # print('AllBins is: ')
     # print(AllBins)
     ehd = np.reshape(np.transpose(AllBins),[1,85])
+    ehd = ehd[0,-5:]
     return ehd
 
 
@@ -78,6 +79,6 @@ def getbins(imgb):
             K = K+2
         L = L+2
     
-    print('bins is:')
-    print(bins)
+    # print('bins is:')
+    # print(bins)
     return bins
