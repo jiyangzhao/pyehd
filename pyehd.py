@@ -5,7 +5,7 @@ from PIL import Image
 def findehd(img):
     r,c,m = np.shape(img)
     if m==3:
-        img = Image.open(img).convert('LA') # convert RGB img to grayscale img
+        img = img.convert('LA') # convert RGB img to grayscale img
     M = 4*np.ceil(r/4) 
     N = 4*np.ceil(c/4)
     img = Image.fromarray(img)
@@ -13,9 +13,9 @@ def findehd(img):
     AllBins = np.zeros((17, 5))
     p = 1
     L = 0
-    for i in range(1,4,1):
+    for i in range(4):
         K = 0
-        for j in range(1,4,1):
+        for j in range(4):
             block = img[K+1:K+M/4, L+1:L+N/4]
             AllBins[p,:] = getbins(double(block))
             K = K + (M/4)
